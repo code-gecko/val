@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For Miranda ❤️ - Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --rose: #ff6b9d;
+            --deep-rose: #c44569;
+            --cream: #fff5f7;
+            --gold: #d4af37;
+            --soft-black: #2c2c2c;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #ffeef8 0%, #ffe3ec 50%, #ffd5e5 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating hearts background */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .heart-float {
+            position: absolute;
+            font-size: 20px;
+            opacity: 0;
+            animation: floatUp 8s ease-in infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.6;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .login-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 60px 40px;
+            box-shadow: 0 30px 80px rgba(255, 107, 157, 0.3);
+            text-align: center;
+            animation: slideIn 1s ease-out;
+            border: 2px solid rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .heart-icon {
+            font-size: 80px;
+            color: var(--rose);
+            animation: heartbeat 1.5s ease-in-out infinite;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            25% {
+                transform: scale(1.1);
+            }
+            50% {
+                transform: scale(1);
+            }
+        }
+
+        h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 3rem;
+            font-weight: 600;
+            color: var(--deep-rose);
+            margin: 20px 0;
+            animation: fadeIn 1.5s ease-out 0.3s both;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: var(--rose);
+            font-weight: 300;
+            font-style: italic;
+            margin-bottom: 40px;
+            animation: fadeIn 1.5s ease-out 0.5s both;
+        }
+
+        .decorative-line {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            margin: 30px auto;
+            animation: fadeIn 1.5s ease-out 0.7s both;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+            text-align: left;
+            animation: fadeIn 1.5s ease-out 0.9s both;
+        }
+
+        label {
+            display: block;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: var(--deep-rose);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        input[type="password"] {
+            width: 100%;
+            padding: 18px 50px 18px 20px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            border: 2px solid rgba(255, 107, 157, 0.3);
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.8);
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        input[type="password"]:focus {
+            border-color: var(--rose);
+            background: white;
+            box-shadow: 0 5px 20px rgba(255, 107, 157, 0.2);
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            color: var(--rose);
+            transition: all 0.3s ease;
+        }
+
+        .toggle-password:hover {
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 18px 50px;
+            font-size: 1.2rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(135deg, var(--rose) 0%, var(--deep-rose) 100%);
+            color: white;
+            animation: fadeIn 1.5s ease-out 1.1s both;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 107, 157, 0.4);
+        }
+
+        .login-btn:active {
+            transform: translateY(-2px) scale(1.01);
+        }
+
+        .error-message {
+            display: none;
+            color: var(--deep-rose);
+            font-size: 0.9rem;
+            margin-top: 15px;
+            padding: 12px;
+            background: rgba(255, 107, 157, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid var(--rose);
+            animation: shake 0.5s ease;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            75% { transform: translateX(10px); }
+        }
+
+        .hint {
+            font-size: 0.85rem;
+            color: var(--soft-black);
+            margin-top: 10px;
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        /* Lock icon animation */
+        .lock-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .lock-icon {
+            font-size: 2rem;
+            margin-left: 10px;
+            display: inline-block;
+            animation: swing 2s ease-in-out infinite;
+        }
+
+        @keyframes swing {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(10deg); }
+            75% { transform: rotate(-10deg); }
+        }
+
+        /* Success animation */
+        @keyframes successPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .success {
+            animation: successPulse 0.6s ease;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .login-card {
+                padding: 40px 30px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .heart-icon {
+                font-size: 60px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-card {
+                padding: 40px 25px;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            input[type="password"] {
+                padding: 15px 45px 15px 18px;
+                font-size: 0.95rem;
+            }
+
+            .login-btn {
+                padding: 15px 40px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-bg" id="hearts-bg"></div>
+
+    <div class="login-container">
+        <div class="login-card">
+            <div class="heart-icon">❤️</div>
+            
+            <h1>Welcome Back <span class="lock-icon">🔒</span></h1>
+            
+            <div class="decorative-line"></div>
+            
+            <p class="subtitle">Enter the secret word to continue</p>
+            
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label for="password">Password 💕</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password" 
+                            placeholder="Type the magic word..."
+                            required
+                            autocomplete="off"
+                        >
+                        <button type="button" class="toggle-password" onclick="togglePassword()">
+                            👁️
+                        </button>
+                    </div>
+                    <p class="hint">Hint: A sweet name for someone special 💖</p>
+                </div>
+
+                <button type="submit" class="login-btn">
+                    Unlock My Heart ❤️
+                </button>
+
+                <div id="errorMessage" class="error-message">
+                    Oops! That's not quite right. Try again! 💕
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Create floating hearts
+        function createFloatingHearts() {
+            const heartsContainer = document.getElementById('hearts-bg');
+            const heartSymbols = ['❤️', '💕', '💖', '💗', '💝'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart-float';
+                heart.textContent = heartSymbols[Math.floor(Math.random() * heartSymbols.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.fontSize = (Math.random() * 20 + 15) + 'px';
+                heartsContainer.appendChild(heart);
+                
+                setTimeout(() => {
+                    heart.remove();
+                }, 8000);
+            }, 800);
+        }
+
+        // Toggle password visibility
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleBtn = document.querySelector('.toggle-password');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleBtn.textContent = '🙈';
+            } else {
+                passwordInput.type = 'password';
+                toggleBtn.textContent = '👁️';
+            }
+        }
+
+        // Handle login
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const passwordInput = document.getElementById('password');
+            const errorMessage = document.getElementById('errorMessage');
+            const loginCard = document.querySelector('.login-card');
+            const password = passwordInput.value.toLowerCase().trim();
+            
+            // Check if password is correct
+            if (password === 'babe') {
+                // Success! Hide error message
+                errorMessage.classList.remove('show');
+                
+                // Add success animation
+                loginCard.classList.add('success');
+                
+                // Create success confetti
+                createConfetti();
+                
+                // Redirect to main page after a short delay
+                setTimeout(() => {
+                    window.location.href = 'index.html'; // Change this to your main page filename
+                }, 1500);
+            } else {
+                // Show error message
+                errorMessage.classList.add('show');
+                
+                // Shake the input
+                passwordInput.style.animation = 'shake 0.5s ease';
+                setTimeout(() => {
+                    passwordInput.style.animation = '';
+                }, 500);
+                
+                // Clear the input
+                passwordInput.value = '';
+                passwordInput.focus();
+            }
+        }
+
+        // Create confetti on success
+        function createConfetti() {
+            const colors = ['#ff6b9d', '#d4af37', '#ff1493', '#ff69b4', '#ffc0cb'];
+            
+            for (let i = 0; i < 100; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.style.position = 'fixed';
+                    confetti.style.width = '10px';
+                    confetti.style.height = '10px';
+                    confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-10px';
+                    confetti.style.borderRadius = '50%';
+                    confetti.style.zIndex = '9999';
+                    confetti.style.animation = 'confetti-fall 3s ease-out forwards';
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 3000);
+                }, i * 30);
+            }
+        }
+
+        // Add confetti animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes confetti-fall {
+                0% {
+                    transform: translateY(0) rotate(0deg);
+                    opacity: 1;
+                }
+                100% {
+                    transform: translateY(100vh) rotate(720deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize
+        createFloatingHearts();
+        
+        // Focus on password input when page loads
+        window.addEventListener('load', () => {
+            document.getElementById('password').focus();
+        });
+
+        // Allow Enter key to submit
+        document.getElementById('password').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleLogin(e);
+            }
+        });
+    </script>
+</body>
+</html>
